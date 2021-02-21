@@ -27,5 +27,10 @@ def get_args():
         type=str,
         help="specify an output filename for json report"
     )
+    parser.add_argument(
+        "--sqlitedb",
+        type=str,
+        help="specify an sqlite filename for rolling reporting (eg. via cron job)"
+    )
     args = parser.parse_args()
     return args

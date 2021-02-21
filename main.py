@@ -50,6 +50,8 @@ def main():
         reporter.generate_csv(args.csv, results)
     if args.json and len(results) > 0:
         reporter.generate_json(args.json, results)
+    if args.sqlitedb and len(results) > 0:
+        reporter.add_to_sqlite(args.sqlitedb, results)
 
 main()
 

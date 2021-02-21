@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 data.json
 data.csv
+*.db
 
 # C extensions
 *.so
@@ -111,6 +112,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+crux/
 
 # Spyder project settings
 .spyderproject
