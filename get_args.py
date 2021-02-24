@@ -8,9 +8,19 @@ def get_args():
         help="specify a single site to fetch CrUX origin stats"
     )
     parser.add_argument(
-        "--sitelist",
+        "--siteslist",
         type=str,
         help="specify a file listing one site per line to check multiple origin stats"
+    )
+    parser.add_argument(
+        "--url",
+        type=str,
+        help="specify a single site to fetch CrUX url stats"
+    )
+    parser.add_argument(
+        "--urlslist",
+        type=str,
+        help="specify a file listing one url per line to check multiple url stats"
     )
     parser.add_argument(
         "--apikey",
