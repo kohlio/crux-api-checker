@@ -17,6 +17,8 @@ pip install -r requirements.txt
 
 Example `python main.py --site https://www.google.com`
 
+Example `python main.py --siteslist siteslist.txt --csv data/test.csv --json data/test.json --sqlitedb data/test.db`
+
 See `python main.py --help`.
 
 ```

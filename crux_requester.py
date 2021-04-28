@@ -26,16 +26,24 @@ class CruxRequester():
         '''
         Extracts the 75% percentiles for the main metrics.
         '''
-        return {
-            "fcp": data["record"]["metrics"]["first_contentful_paint"]["percentiles"]["p75"],
-            "fid": data["record"]["metrics"]["first_input_delay"]["percentiles"]["p75"],
-            "lcp": data["record"]["metrics"]["largest_contentful_paint"]["percentiles"]["p75"],
-            "cls": data["record"]["metrics"]["cumulative_layout_shift"]["percentiles"]["p75"]
-        }
+        result = {}
+        try:
+            result["fid"] = data["record"]["metrics"]["first_input_delay"]["percentiles"]["p75"]
+        except TypeError:
+            result["fid"] = "no data"
+        try:
+            result["lcp"] = data["record"]["metrics"]["largest_contentful_paint"]["percentiles"]["p75"]
+        except TypeError:
+            result["lcp"] = "no data"
+        try:
+            result["cls"] = data["record"]["metrics"]["cumulative_layout_shift"]["percentiles"]["p75"]
+        except TypeError:
+            result["cls"] = "no data"
+        return result
     
     def get_results(self, pages_to_check):
         for page in pages_to_check:
-            for device in ["DESKTOP", "PHONE"]:
+            for device in ["PHONE"]:
                 time.sleep(1)
                 data = self.request_page_crux(page, device)
                 web_vitals = self.extract_percentiles(data)

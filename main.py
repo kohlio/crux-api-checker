@@ -47,29 +47,15 @@ def main():
 
     # Use CruxRequester to fetch core web vitals data for each site
     worker = CruxRequester(API_KEY)
-    results = []
     worker.get_results(pages_to_check)
     pprint(worker.data)
-    # results.append(data)
-    # mobile = worker.data["mobile"]
-    # desktop = worker.data["desktop"]
-    # print(
-    #     f"\nCrUX API Core Web Vitals metrics for {page} based on 75th percentile:\n"
-    #     f"Data: {data}\n"
-    # )
-    # results.append({
-    #     "page": page,
-    #     "mobile": mobile,
-    #     "desktop": desktop,
-    #     "timestamp": datetime.isoformat(datetime.now())
-    # })
+    results = worker.data
 
     # Write reports if requested
     reporter = CruxReporter()
     if args.csv and len(results) > 0:
         reporter.generate_csv(args.csv, worker.data)
     if args.json and len(results) > 0:
-        print('saving json')
         reporter.generate_json(args.json, worker.data)
     if args.sqlitedb and len(results) > 0:
         reporter.add_to_sqlite(args.sqlitedb, worker.data)
