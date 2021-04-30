@@ -5,6 +5,7 @@ __pycache__/
 data/*
 *.db
 temp.txt
+.vscode/
 
 # C extensions
 *.so

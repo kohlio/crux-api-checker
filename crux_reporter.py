@@ -2,6 +2,7 @@ import csv
 import json
 import sqlite3
 from datetime import datetime
+import mysql.connector as mysql
 
 class CruxReporter():
     
@@ -67,10 +68,24 @@ class CruxReporter():
         conn.commit()
         conn.close()
         print(f"\nResults written to {dbname}.\n")
-
-
-
     
+    def add_to_remote_mysql(self, endpoint, dbase, user, password, results):
+        db_connection = mysql.connect(host=endpoint, database=dbase, user=user, password=password)
+        cursor = db_connection.cursor()
+        for result in results:
+            site = result["page"]
+            device = result["device"]
+            cls = result["cls"]
+            fid = result["fid"]
+            lcp = result["lcp"]
+            result_type = result["result_type"]
+            timestamp = self.timestamp
+            sql = (
+                f"INSERT INTO core_web_vitals (site, device, cls, fid, lcp, timestamp, result_type) "
+                f"VALUES ('{site}','{device}',{cls},{fid},{lcp},'{timestamp}', '{result_type}');"
+            )
+            cursor.execute(sql)
+        db_connection.commit()
+        db_connection.close()
+        print(f"\nResults sent to remote mysql database.\n")
 
-
-   

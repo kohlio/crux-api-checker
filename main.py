@@ -44,6 +44,12 @@ def main():
                     "request_type": "url",
                     "page": url
                 })
+    if args.mysql:
+        MYSQL_ENDPOINT = os.getenv("MYSQL_ENDPOINT")
+        MYSQL_DB = os.getenv("MYSQL_DB")
+        MYSQL_USER = os.getenv("MYSQL_USER")
+        MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+
 
     # Use CruxRequester to fetch core web vitals data for each site
     worker = CruxRequester(API_KEY)
@@ -59,6 +65,8 @@ def main():
         reporter.generate_json(args.json, worker.data)
     if args.sqlitedb and len(results) > 0:
         reporter.add_to_sqlite(args.sqlitedb, worker.data)
+    if args.mysql and len(results) > 0:
+        reporter.add_to_remote_mysql(MYSQL_ENDPOINT, MYSQL_DB, MYSQL_USER, MYSQL_PASSWORD, worker.data)
 
 main()
 

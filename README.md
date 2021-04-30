@@ -19,6 +19,8 @@ Example `python main.py --site https://www.google.com`
 
 Example `python main.py --siteslist siteslist.txt --csv data/test.csv --json data/test.json --sqlitedb data/test.db`
 
+Example `python main.py --siteslist siteslist.txt --mysql`
+
 See `python main.py --help`.
 
 ```

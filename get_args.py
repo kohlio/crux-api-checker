@@ -42,5 +42,10 @@ def get_args():
         type=str,
         help="specify an sqlite filename for rolling reporting (eg. via cron job)"
     )
+    parser.add_argument(
+        "--mysql",
+        action='store_true',
+        help="insert results to remote mysql with credentials from dot env file"
+    )
     args = parser.parse_args()
     return args
